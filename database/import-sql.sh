@@ -2,19 +2,19 @@
 #
 # Import provided SQL files in to MySQL.
 #
-# The files in the {vvv-dir}/database/backups/ directory should be created by
+# The files in the {cividev-dir}/database/backups/ directory should be created by
 # mysqldump or some other export process that generates a full set of SQL commands
 # to create the necessary tables and data required by a database.
 #
 # For an import to work properly, the SQL file should be named `db_name.sql` in which
 # `db_name` matches the name of a database already created in {vvv-dir}/database/init-custom.sql
-# or {vvv-dir}/database/init.sql.
+# or {cividev-dir}/database/init.sql.
 #
 # If a filename does not match an existing database, it will not import correctly.
 #
 # If tables already exist for a database, the import will not be attempted again. After an
 # initial import, the data will remain persistent and available to MySQL on future boots
-# through {vvv-dir}/database/data
+# through {cividev-dir}/database/data
 #
 # Let's begin...
 

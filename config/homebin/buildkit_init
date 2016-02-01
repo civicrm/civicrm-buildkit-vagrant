@@ -4,18 +4,18 @@
 
 set -e
 
-if [[ $USER != 'vagrant' ]]; then
+if [ $USER != 'vagrant' ]; then
 	echo "Please run as vagrant user."
 	exit 1
 fi
 
 # Download buildkit from the git repo
-if [[ ! -d "~/buildkit" ]]; then
+if [ ! -d "$HOME/buildkit" ]; then
   echo "Downloading buildkit..."
-  git clone https://github.com/civicrm/civicrm-buildkit.git ~/buildkit
+  git clone https://github.com/civicrm/civicrm-buildkit.git $HOME/buildkit
 else
   echo "Updating buildkit..."
-  cd ~/buildkit
+  cd $HOME/buildkit
   git pull
 fi
 
@@ -23,6 +23,18 @@ PATH="$HOME/buildkit/bin:$PATH"
 
 echo "Updating buildkit and tools..."
 civi-download-tools
+
+# Configuring amp and restarting Apache...
+amp config:set \
+  --mysql_type="mycnf" \
+  --mysql_dsn="mysql://root:root@localhost:3306" \
+  --httpd_type="apache24" \
+  --perm_type="linuxAcl" \
+  --perm_user="www-data"
+# now that the ~/.amp directory is created we can enable the Apache config file
+sudo cp "/srv/config/apache2-config/sites/buildkit-vhosts.conf" "/etc/apache2/sites-available/"
+sudo a2ensite buildkit-vhosts
+sudo apache2ctl restart
 
 echo "Building default site(s)"
 civibuild create d7-master

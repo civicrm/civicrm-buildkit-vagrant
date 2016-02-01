@@ -17,8 +17,8 @@ Vagrant.configure("2") do |config|
     v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
 
     # Set the box name in VirtualBox to match the working directory.
-    vvv_pwd = Dir.pwd
-    v.name = File.basename(vvv_pwd)
+    cividev_pwd = Dir.pwd
+    v.name = File.basename(cividev_pwd)
   end
 
   # Configuration options for the Parallels provider.
@@ -74,7 +74,7 @@ Vagrant.configure("2") do |config|
     override.vm.box = "ericmann/trusty64"
   end
 
-  config.vm.hostname = "cividev"
+  config.vm.hostname = "civi.dev"
 
   # Local Machine Hosts
   #
@@ -89,10 +89,10 @@ Vagrant.configure("2") do |config|
   # Other domains can be automatically added by including a cividev-hosts file containing
   # individual domains separated by whitespace in subdirectories of www/.
   if defined?(VagrantPlugins::HostsUpdater)
-    # Recursively fetch the paths to all vvv-hosts files under the www/ directory.
-    paths = Dir[File.join(vagrant_dir, 'www', '**', 'vvv-hosts')]
+    # Recursively fetch the paths to all cividev-hosts files under the www/ directory.
+    paths = Dir[File.join(vagrant_dir, 'www', '**', 'cividev-hosts')]
 
-    # Parse the found vvv-hosts files for host names.
+    # Parse the found cividev-hosts files for host names.
     hosts = paths.map do |path|
       # Read line from file and remove line breaks
       lines = File.readlines(path).map(&:chomp)
@@ -132,7 +132,7 @@ Vagrant.configure("2") do |config|
   # line will cause the guest machine to use DHCP to determine its IP address. You will also
   # be prompted to choose a network interface to bridge with during `vagrant up`.
   #
-  # Please see VVV and Vagrant documentation for additional details.
+  # Please see Vagrant documentation for additional details.
   #
   # config.vm.network :public_network
 
@@ -145,7 +145,7 @@ Vagrant.configure("2") do |config|
   # configuration will likely be necessary on our host machine or router so that outside
   # requests will be forwarded from 80 -> 8080 -> 80.
   #
-  # Please see VVV and Vagrant documentation for additional details.
+  # Please see Vagrant documentation for additional details.
   #
   # config.vm.network "forwarded_port", guest: 80, host: 8080
 
@@ -285,7 +285,7 @@ Vagrant.configure("2") do |config|
   # (run: "always" support added in 1.6.0)
   if vagrant_version >= "1.6.0"
     config.vm.provision :shell, inline: "sudo service mysql restart", run: "always"
-    config.vm.provision :shell, inline: "sudo service nginx restart", run: "always"
+    config.vm.provision :shell, inline: "sudo service apache2 restart", run: "always"
   end
 
   # Vagrant Triggers

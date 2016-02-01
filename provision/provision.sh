@@ -129,7 +129,7 @@ profile_setup() {
   echo " * Copied /srv/config/vimrc                             to /home/vagrant/.vimrc"
   echo " * rsync'd /srv/config/homebin                          to /home/vagrant/bin"
 
-  # If a bash_prompt file exists in the VVV config/ directory, copy to the VM.
+  # If a bash_prompt file exists in the cividev config/ directory, copy to the VM.
   if [[ -f "/srv/config/bash_prompt" ]]; then
     cp "/srv/config/bash_prompt" "/home/vagrant/.bash_prompt"
     echo " * Copied /srv/config/bash_prompt to /home/vagrant/.bash_prompt"
@@ -159,13 +159,9 @@ package_check() {
 package_install() {
   package_check
 
-  # Apache
-  #
-  # Set the default hostname
-  echo "ServerName localhost" > /etc/apache2/conf-available/servername.conf
-  sudo a2enconf servername
-  # Set the default VirtualHost
-    
+  # dnsmasq configuration
+  echo "address=/dev/127.0.0.1" >> /etc/dnsmasq.conf
+  service dnsmasq restart
   
   # MySQL
   #
@@ -175,20 +171,14 @@ package_install() {
   echo mysql-server mysql-server/root_password password "root" | debconf-set-selections
   echo mysql-server mysql-server/root_password_again password "root" | debconf-set-selections
 
-  # PHP packeages that need extra setup
-  php5enmod mcrypt
-  php5enmod imap
-  a2enmod rewrite
-  apache2ctl restart
-
   # Postfix
   #
   # Use debconf-set-selections to specify the selections in the postfix setup. Set
-  # up as an 'Internet Site' with the host name 'vvv'. Note that if your current
+  # up as an 'Internet Site' with the host name 'civi.dev'. Note that if your current
   # Internet connection does not allow communication over port 25, you will not be
   # able to send mail, even with postfix installed.
   echo postfix postfix/main_mailer_type select Internet Site | debconf-set-selections
-  echo postfix postfix/mailname string vvv | debconf-set-selections
+  echo postfix postfix/mailname string civi.dev | debconf-set-selections
 
   # Disable ipv6 as some ISPs/mail servers have problems with it
   echo "inet_protocols = ipv4" >> "/etc/postfix/main.cf"
@@ -222,17 +212,6 @@ tools_install() {
   # installation allows us to use a later version. Not specifying a version
   # will load the latest stable.
   pecl install xdebug
-
-  # ack-grep
-  #
-  # Install ack-rep directory from the version hosted at beyondgrep.com as the
-  # PPAs for Ubuntu Precise are not available yet.
-  if [[ -f /usr/bin/ack ]]; then
-    echo "ack-grep already installed"
-  else
-    echo "Installing ack-grep as ack"
-    curl -s http://beyondgrep.com/ack-2.14-single-file > "/usr/bin/ack" && chmod +x "/usr/bin/ack"
-  fi
 
   # COMPOSER
   #
@@ -269,6 +248,25 @@ tools_install() {
   # config and actual path.
   echo "Adding graphviz symlink for Webgrind..."
   ln -sf "/usr/bin/dot" "/usr/local/bin/dot"
+}
+
+apache2_setup() {
+
+  # Apache
+  #
+  # Set the default hostname
+  cp "/srv/config/apache2-config/conf/servername.conf" "/etc/apache2/conf-available/"
+  a2enconf servername
+  
+  # Essential modules
+  a2enmod rewrite
+  
+  # PHP packages that need extra setup
+  php5enmod mcrypt
+  php5enmod imap
+  
+  # Restart Apache
+  apache2ctl restart    
 }
 
 mysql_setup() {
@@ -372,6 +370,12 @@ mailcatcher_setup() {
     cp "/srv/config/php5-fpm-config/mailcatcher.ini" "/etc/php5/mods-available/mailcatcher.ini"
     echo " * Copied /srv/config/php5-fpm-config/mailcatcher.ini    to /etc/php5/mods-available/mailcatcher.ini"
   fi
+}
+
+services_install() {
+  # Used to ensure proper services are started on `vagrant up`
+  cp "/srv/config/init/cividev-start.conf" "/etc/init/cividev-start.conf"
+  echo " * Copied /srv/config/init/cividev-start.conf               to /etc/init/cividev-start.conf"
 }
 
 services_restart() {
@@ -505,13 +509,15 @@ network_check
 echo " "
 echo "Main packages check and install."
 package_install
+apache2_setup
 tools_install
 mailcatcher_setup
+services_install
 services_restart
 mysql_setup
 
 network_check
-# WP-CLI and debugging tools
+# development and debugging tools
 echo " "
 echo "Installing/updating debugging tools"
 
