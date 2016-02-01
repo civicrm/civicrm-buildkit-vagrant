@@ -1,0 +1,30 @@
+#!/bin/bash
+#
+# A script to install and update buildkit and related tools
+
+set -e
+
+if [[ $USER != 'vagrant' ]]; then
+	echo "Please run as vagrant user."
+	exit 1
+fi
+
+# Download buildkit from the git repo
+if [[ ! -d "~/buildkit" ]]; then
+  echo "Downloading buildkit..."
+  git clone https://github.com/civicrm/civicrm-buildkit.git ~/buildkit
+else
+  echo "Updating buildkit..."
+  cd ~/buildkit
+  git pull
+fi
+
+PATH="$HOME/buildkit/bin:$PATH"
+
+echo "Updating buildkit and tools..."
+civi-download-tools
+
+echo "Building default site(s)"
+civibuild create d7-master
+
+echo "Done"
