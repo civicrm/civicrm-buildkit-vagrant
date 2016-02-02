@@ -1,12 +1,12 @@
 # civicrm-buildkit-vagrant (cividev)
 
-This software is derived from [Varying Vagrant Vagrants](https://github.com/Varying-Vagrant-Vagrants/VVV).It is an open source [Vagrant](https://www.vagrantup.com) configuration focused on [CiviCRM](https://civicrm.org) development. Cividev is [MIT Licensed](https://github.com/civicrm/civicrm-buildkit-vagrant/blob/master/LICENSE).
+This software is derived from [Varying Vagrant Vagrants](https://github.com/Varying-Vagrant-Vagrants/VVV). It is an open source [Vagrant](https://www.vagrantup.com) configuration focused on [CiviCRM](https://civicrm.org) development. Cividev inherits VVV's [MIT License](https://github.com/civicrm/civicrm-buildkit-vagrant/blob/master/LICENSE).
 
 ## Overview
 
 ### The Purpose of cividev
 
-The primary goal of civicrm-buildkit-vagrant (cividev) is to provide a complete and easily installable development environment for CiviCRM with a standard server configuration and website templates.
+The primary goal of civicrm-buildkit-vagrant (cividev) is to provide a complete and easily installable development environment for CiviCRM with a standard server setup and CiviCRM configuration templates.
 
 Cividev is ideal for testing new releases, developing extensions and contributing to CiviCRM core.
 
@@ -14,7 +14,7 @@ Cividev is ideal for testing new releases, developing extensions and contributin
 
 #### Software Requirements
 
-Cividev requires recent versions of both Vagrant and VirtualBox to be installed. If you use it for developmment, it will work with your favorite locally installed development environment.
+Cividev requires recent versions of both Vagrant and VirtualBox to be installed. If you use it for development, it will work with your favorite locally installed development environment.
 
 [Vagrant](https://www.vagrantup.com) is a "tool for building and distributing development environments". It works with [virtualization](https://en.wikipedia.org/wiki/X86_virtualization) software such as [VirtualBox](https://www.virtualbox.org/) to provide a virtual machine sandboxed from your local environment.
 
@@ -22,17 +22,17 @@ Cividev requires recent versions of both Vagrant and VirtualBox to be installed.
 
 Once Vagrant and VirtualBox are installed, download or clone cividev and type `vagrant up` to automatically build a virtualized Ubuntu server on your computer containing everything needed to test or develop with any combination of CMS and CiviCRM versions. See our section on [The First Vagrant Up](#the-first-vagrant-up) for detailed instructions.
 
-Multiple projects can be developed at once in the same environment. Cividev is pre-configured with the following configurations:
+Multiple projects can be developed at once in the same environment. Cividev is pre-configured with the following CiviCRM configurations:
 
-* d7-master with Drupal 7 and the current developmment version of CiviCRM
-* d7-46 with Drupal 7 and CiviCRM 4.6 (LTS)
-* wp-master and wp-46 with WordPress
-* d8-master with Drupal 8
-* b-master with Backdrop
+* __d7-master__ with Drupal 7 and the current development version of CiviCRM
+* __d7-46__ with Drupal 7 and CiviCRM 4.6 (LTS)
+* __wp-master__ and __wp-46__ with WordPress
+* __d8-master__ with Drupal 8
+* __b-master__ with Backdrop
 
 Cividesk's `config`, `database`, `log` and `www` directories are shared with the virtualized server.
 
-These shared directories allow you to work, for example, in `cividevc/www/d7-master` in your local file system and have those changes immediately reflected in the virtualized server's file system and http://d7-master.dev/. Likewise, if you `vagrant ssh` and make modifications to the files in `/srv/www/`, you'll immediately see those changes in your local file system.
+These shared directories allow you to work, for example, in `cividev/www/d7-master` in your local file system and have those changes immediately reflected in the virtualized server's file system and http://d7-master.dev/. Likewise, if you `vagrant ssh` and make modifications to the files in `/srv/www/`, you'll immediately see those changes in your local file system.
 
 ### The First Vagrant Up
 
@@ -61,7 +61,7 @@ These shared directories allow you to work, for example, in `cividevc/www/d7-mas
     * [http://civi.dev/](http://civi.dev/) for a (minimal) dashboard containing several useful tools
 1. Build additional instances:
     * ssh into your machine with 'vagrant ssh' from the cividev directory
-    * type 'civibuild create <configuration>' with <configuration> one of the predefined configurations listed above (ie. wp-46 for example)
+    * type 'civibuild create <configuration>' with <configuration> one of the [predefined configurations](https://github.com/civicrm/civicrm-buildkit-vagrant/blob/master/www/cividev-hosts) (ie. wp-46 for example)
     * go to 'http://<configuration>.dev' in your local browser to acces the new instance (ie. http://wp-46.dev)
 
 Fancy, yeah?
