@@ -40,9 +40,9 @@ These shared directories allow you to work, for example, in `cividev/www/d7-mast
 1. Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) 4.3 or above
 1. Install [Vagrant](https://www.vagrantup.com/downloads.html) 1.7 or above
     * `vagrant` will now be available as a command in your terminal, try it out.
-    * ***Note:*** If Vagrant is already installed, use `vagrant -v` to check the version. You may want to consider upgrading if a much older version is in use.
+    * ***Note:*** If Vagrant is already installed, use `vagrant -v` to check the version. You may want to consider upgrading if an older version is in use.
 1. Install the [vagrant-hostsupdater](https://github.com/cogitatio/vagrant-hostsupdater) plugin with `vagrant plugin install vagrant-hostsupdater`
-    * Note: This step is not a requirement, though it does make the process of starting up a virtual machine nicer by automating the entries needed in your local machine's `hosts` file to access the provisioned VVV domains in your browser.
+    * Note: This step is not a requirement, though it does make the process of starting up a virtual machine nicer by automating the entries needed in your local machine's `hosts` file to access the provisioned VVV (Varying Vagrant Vagrants) domains in your browser.
     * If you choose not to install this plugin, a manual entry should be added to your local `hosts` file that looks like this: `192.168.50.4  vvv.dev local.wordpress.dev local.wordpress-trunk.dev src.wordpress-develop.dev build.wordpress-develop.dev`
 1. Install the [vagrant-triggers](https://github.com/emyl/vagrant-triggers) plugin with `vagrant plugin install vagrant-triggers`
     * Note: This step is not a requirement. When installed, it allows for various scripts to fire when issuing commands such as `vagrant halt` and `vagrant destroy`.
@@ -52,7 +52,7 @@ These shared directories allow you to work, for example, in `cividev/www/d7-mast
     * `git clone git://github.com/civicrm/civicrm-buildkit-vagrant.git cividev`
     * OR download and extract the repository master [zip file](https://github.com/civicrm/civicrm-buildkit-vagrant/archive/master.zip) to a `cividev` directory on your computer.
     * OR download and extract a [stable release](https://github.com/civicrm/civicrm-buildkit-vagrant/releases) zip file if you'd like some extra comfort.
-1. In a command prompt, change into the new directory with `cd cividev`
+1. In a command prompt, change into the directory where you placed the files.  Use `cd` from the command prompt to do this.  
 1. Start the Vagrant environment with `vagrant up`
     * Be VERY patient as the magic happens (time for a coffee or lunch break?). This will take a while on the first run as your local machine downloads the required files and builds all.
     * Watch as the script ends, as an administrator or `su` ***password may be required*** to properly modify the hosts file on your local machine.
