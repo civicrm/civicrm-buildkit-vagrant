@@ -24,19 +24,24 @@ PATH="$HOME/buildkit/bin:$PATH"
 echo "Updating buildkit and tools..."
 civi-download-tools
 
-# Configuring amp and restarting Apache...
+echo "Configuring amp and civibuild..."
 amp config:set \
   --mysql_type="mycnf" \
   --mysql_dsn="mysql://root:root@localhost:3306" \
   --httpd_type="apache24" \
-  --perm_type="linuxAcl" \
-  --perm_user="www-data"
+  --perm_type="none"
+cp "/srv/config/buildkit-config/civibuild.conf" "$HOME/buildkit/app/"
+
 # now that the ~/.amp directory is created we can enable the Apache config file
-sudo cp "/srv/config/apache2-config/sites/buildkit-vhosts.conf" "/etc/apache2/sites-available/"
+sudo cp "/srv/config/buildkit-config/buildkit-vhosts.conf" "/etc/apache2/sites-available/"
 sudo a2ensite buildkit-vhosts
+
+if [ ! -d "/srv/www/d7-master" ]; then
+  echo "Building d7-master"
+  civibuild create d7-master
+fi
+
+echo "Restarting Apache"
 sudo apache2ctl restart
 
-echo "Building default site(s)"
-civibuild create d7-master
-
-echo "Done"
+echo "You're all set!"
