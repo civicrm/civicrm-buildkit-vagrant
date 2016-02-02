@@ -14,7 +14,7 @@ Cividev is ideal for testing new releases, developing extensions and contributin
 
 #### Software Requirements
 
-Cividev requires recent versions of both Vagrant and VirtualBox to be installed. If you use it for development, it will work with your favorite locally installed development environment.
+Cividev requires recent versions of both Vagrant (1.7+) and VirtualBox (4.3+) to be installed. If you use it for development, it will work with your favorite locally installed development environment.
 
 [Vagrant](https://www.vagrantup.com) is a "tool for building and distributing development environments". It works with [virtualization](https://en.wikipedia.org/wiki/X86_virtualization) software such as [VirtualBox](https://www.virtualbox.org/) to provide a virtual machine sandboxed from your local environment.
 
@@ -37,8 +37,8 @@ These shared directories allow you to work, for example, in `cividev/www/d7-mast
 ### The First Vagrant Up
 
 1. Start with any local operating system such as Mac OS X, Linux, or Windows.
-1. Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
-1. Install [Vagrant](https://www.vagrantup.com/downloads.html)
+1. Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) 4.3 or above
+1. Install [Vagrant](https://www.vagrantup.com/downloads.html) 1.7 or above
     * `vagrant` will now be available as a command in your terminal, try it out.
     * ***Note:*** If Vagrant is already installed, use `vagrant -v` to check the version. You may want to consider upgrading if a much older version is in use.
 1. Install the [vagrant-hostsupdater](https://github.com/cogitatio/vagrant-hostsupdater) plugin with `vagrant plugin install vagrant-hostsupdater`

@@ -255,8 +255,8 @@ apache2_setup() {
   # Apache
   #
   # Set the default hostname
-  cp "/srv/config/apache2-config/conf/servername.conf" "/etc/apache2/conf-available/"
-  a2enconf servername
+  cp "/srv/config/apache2-config/conf/localhost.conf" "/etc/apache2/conf-available/"
+  a2enconf localhost
   
   # Essential modules
   a2enmod rewrite
