@@ -11,7 +11,20 @@ Vagrant.configure("2") do |config|
 
   # Configurations from 1.0.x can be placed in Vagrant 1.1.x specs like the following.
   config.vm.provider :virtualbox do |v|
-    v.customize ["modifyvm", :id, "--memory", 1024]
+    # Give VM 1/4 system memory - cf. https://stefanwrobel.com/how-to-make-vagrant-performance-not-suck 
+    host = RbConfig::CONFIG['host_os']
+    if host =~ /darwin/
+	  # sysctl returns Bytes and we need to convert to MB
+	  mem = `sysctl -n hw.memsize`.to_i / 1024
+    elsif host =~ /linux/
+	  # meminfo shows KB and we need to convert to MB
+	  mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i 
+    elsif host =~ /mswin|mingw|cygwin/
+	  # Windows code via https://github.com/rdsubhas/vagrant-faster
+	  mem = `wmic computersystem Get TotalPhysicalMemory`.split[1].to_i / 1024
+    end
+    mem = mem / 1024 / 4
+    v.customize ["modifyvm", :id, "--memory", mem]
     v.customize ["modifyvm", :id, "--cpus", 1]
     v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
