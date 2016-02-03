@@ -41,6 +41,7 @@ These shared directories allow you to work, for example, in `cividev/www/d7-mast
 1. Install [Vagrant](https://www.vagrantup.com/downloads.html) 1.7 or above
     * `vagrant` will now be available as a command in your terminal, try it out.
     * ***Note:*** If Vagrant is already installed, use `vagrant -v` to check the version. You may want to consider upgrading if an older version is in use.
+    * if you are on Windows, please install *git* with *ssh* as described [here](http://blog.osteel.me/posts/2015/01/25/how-to-use-vagrant-on-windows.html)
 1. Install the [vagrant-hostsupdater](https://github.com/cogitatio/vagrant-hostsupdater) plugin with `vagrant plugin install vagrant-hostsupdater`
     * Note: This step is not a requirement, though it does make the process of starting up a virtual machine nicer by automating the entries needed in your local machine's `hosts` file to access the provisioned VVV (Varying Vagrant Vagrants) domains in your browser.
     * If you choose not to install this plugin, a manual entry should be added to your local `hosts` file that looks like this: `192.168.50.4  vvv.dev local.wordpress.dev local.wordpress-trunk.dev src.wordpress-develop.dev build.wordpress-develop.dev`
