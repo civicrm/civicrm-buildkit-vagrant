@@ -492,6 +492,11 @@ phpmyadmin_setup() {
   cp "/srv/config/phpmyadmin-config/config.inc.php" "/srv/www/default/database-admin/"
 }
 
+git_setup() {
+  ## Git repos in shared folders have wonky permissions.
+  git config --system core.filemode false
+}
+
 buildkit() {
   sudo -H -u vagrant /home/vagrant/bin/buildkit_init
 }
@@ -528,6 +533,11 @@ php_codesniff
 phpmyadmin_setup
 
 network_check
+
+echo " "
+echo "Configuring git"
+git_setup
+
 # Time for buildkit!
 echo " "
 echo "Installing/updating buildkit and default sites"
