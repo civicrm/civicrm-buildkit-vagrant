@@ -64,7 +64,7 @@ apt_package_check_list=(
 
   # dnsmasq to redirect *.dev to locahost
   dnsmasq
-  
+
   # ntp service to keep clock current
   ntp
 
@@ -162,7 +162,7 @@ package_install() {
   # dnsmasq configuration
   echo "address=/dev/127.0.0.1" >> /etc/dnsmasq.conf
   service dnsmasq restart
-  
+
   # MySQL
   #
   # Use debconf-set-selections to specify the default password for the root MySQL
@@ -257,16 +257,16 @@ apache2_setup() {
   # Set the default hostname
   cp "/srv/config/apache2-config/conf/localhost.conf" "/etc/apache2/conf-available/"
   a2enconf localhost
-  
+
   # Essential modules
   a2enmod rewrite
-  
+
   # PHP packages that need extra setup
   php5enmod mcrypt
   php5enmod imap
-  
+
   # Restart Apache
-  apache2ctl restart    
+  apache2ctl restart
 }
 
 mysql_setup() {
