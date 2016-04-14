@@ -260,6 +260,7 @@ apache2_setup() {
 
   # Essential modules
   a2enmod rewrite
+  a2enmod ssl
 
   # PHP packages that need extra setup
   php5enmod mcrypt
