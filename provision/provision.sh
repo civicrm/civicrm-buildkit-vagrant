@@ -39,6 +39,7 @@ apt_package_check_list=(
   php5-intl
   php5-gd
   php5-mcrypt
+  php5-xdebug
   php-apc
   apache2
   libapache2-mod-php5
