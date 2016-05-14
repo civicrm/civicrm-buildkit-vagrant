@@ -47,6 +47,7 @@ apt_package_check_list=(
   npm
   phantomjs
   ruby
+  ruby-dev
   rake
 
   # other packages that come in handy
@@ -258,6 +259,17 @@ apache2_setup() {
   # Set the default hostname
   cp "/srv/config/apache2-config/conf/localhost.conf" "/etc/apache2/conf-available/"
   a2enconf localhost
+  if [[ ! -d "/srv/www/default" ]]; then
+    mkdir "/srv/www/default"
+  fi
+  if [[ ! -d "/srv/www/default/phpinfo" ]]; then
+    mkdir "/srv/www/default/phpinfo"
+  fi
+  cp -a "/srv/config/cividev-config/index.php" "/srv/www/default/"
+  cp -aR "/srv/config/cividev-config/phpinfo/" "/srv/www/default/phpinfo/index.php"
+  cp "/srv/config/apache2-config/conf/civi.dev.conf" "/etc/apache2/conf-available/"
+
+  a2enconf civi.dev
 
   # Essential modules
   a2enmod rewrite
@@ -320,7 +332,24 @@ mysql_setup() {
     echo -e "\nMySQL is not installed. No databases imported."
   fi
 }
+mailcatcher_setup_gem() {
 
+# Install dependencies
+# Install the gem
+  gem install mime-types --version "< 3"
+  gem install mailcatcher --conservative
+
+# Make it start on boot
+  cp "/srv/config/init/mailcatcher-gem.conf"  "/etc/init/mailcatcher.conf"
+
+# Make php use it to send mail
+  cp "/srv/config/php5-fpm-config/mailcatcher-gem.ini" "/etc/php5/mods-available/mailcatcher.ini"
+# Notify php mod manager (5.5+)
+  sudo php5enmod mailcatcher
+
+# Start it now
+/usr/bin/env $(which mailcatcher) --ip=0.0.0.0
+}
 mailcatcher_setup() {
   # Mailcatcher
   #
@@ -340,6 +369,7 @@ mailcatcher_setup() {
     # Signatures introduced in 1.26.0
     gpg -q --no-tty --batch --keyserver "hkp://keyserver.ubuntu.com:80" --recv-keys D39DC0E3
     gpg -q --no-tty --batch --keyserver "hkp://keyserver.ubuntu.com:80" --recv-keys BF04FF17
+    gpg -q --no-tty --batch --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 
     printf " * RVM [not installed]\n Installing from source"
     curl --silent -L "https://get.rvm.io" | sudo bash -s stable --ruby
@@ -367,7 +397,7 @@ mailcatcher_setup() {
   fi
 
   if [[ -f "/etc/php5/mods-available/mailcatcher.ini" ]]; then
-    echo " *" Mailcatcher php5 fpm already configured.
+    echo " *" Mailcatcher php5 already configured.
   else
     cp "/srv/config/php5-fpm-config/mailcatcher.ini" "/etc/php5/mods-available/mailcatcher.ini"
     echo " * Copied /srv/config/php5-fpm-config/mailcatcher.ini    to /etc/php5/mods-available/mailcatcher.ini"
@@ -494,6 +524,9 @@ phpmyadmin_setup() {
   cp "/srv/config/phpmyadmin-config/config.inc.php" "/srv/www/default/database-admin/"
 }
 
+
+
+
 git_setup() {
   ## Git repos in shared folders have wonky permissions.
   git config --system core.filemode false
@@ -518,7 +551,8 @@ echo "Main packages check and install."
 package_install
 apache2_setup
 tools_install
-mailcatcher_setup
+#mailcatcher_setup
+mailcatcher_setup_gem
 services_install
 services_restart
 mysql_setup
