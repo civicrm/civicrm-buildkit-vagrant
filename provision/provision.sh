@@ -135,6 +135,9 @@ profile_setup() {
     cp "/srv/config/bash_prompt" "/home/vagrant/.bash_prompt"
     echo " * Copied /srv/config/bash_prompt to /home/vagrant/.bash_prompt"
   fi
+  
+  # Make vagrant own vagrant's files, otherwise you can't edit ~/.bash_profile etc.
+  chown -R vagrant: ~vagrant/
 }
 
 package_check() {
