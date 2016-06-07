@@ -37,11 +37,15 @@ These shared directories allow you to work, for example, in `cividev/www/d7-mast
 ### The First Vagrant Up
 
 1. Start with any local operating system such as Mac OS X, Linux, or Windows.
+1. Install [Git](http://git-scm.org).
+ * Windows users: Be sure to add the Git executables to your path (See, e.g. [this guide](https://eamann.com/tech/vagrant-windows/), under "Prerequisites")
 1. Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) 4.3 or above
 1. Install [Vagrant](https://www.vagrantup.com/downloads.html) 1.7 or above
     * `vagrant` will now be available as a command in your terminal, try it out.
     * ***Note:*** If Vagrant is already installed, use `vagrant -v` to check the version. You may want to consider upgrading if an older version is in use.
     * if you are on Windows, please install *git* with *ssh* as described [here](http://blog.osteel.me/posts/2015/01/25/how-to-use-vagrant-on-windows.html)
+1. Windows Users - if using the bash shell (usually the Git Bash Shell) make sure the process runs as administrator.
+1.  Windows users should be certain that their BIOS' virtualization settings are enabled. (Intel owners should enable VT-x while AMD owners should enable AMD-v. See [here](http://www.sysprobs.com/disable-enable-virtualization-technology-bios) for a better explanation.)
 1. Install the [vagrant-hostsupdater](https://github.com/cogitatio/vagrant-hostsupdater) plugin with `vagrant plugin install vagrant-hostsupdater`
     * Note: This step is not a requirement, though it does make the process of starting up a virtual machine nicer by automating the entries needed in your local machine's `hosts` file to access the provisioned VVV (Varying Vagrant Vagrants) domains in your browser.
     * If you choose not to install this plugin, the following entries should be added to your local `hosts` file:
