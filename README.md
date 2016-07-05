@@ -119,6 +119,8 @@ Cividev is using a 64bit version of Ubuntu. Some older CPUs (such as the popular
 
 All CMS usernames and passwords for these installations are `demo / demo` and `admin / admin` by default.
 
+The MySQL/phpMyAdmin username and password is `root / root` by default.
+ 
 Please note that cividev is a development and testing environment, it is NOT secure and NOT intended to be used in production or on any Internet-accessible server.
 
 ### What do you get?
