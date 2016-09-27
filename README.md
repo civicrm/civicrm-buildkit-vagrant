@@ -95,6 +95,7 @@ Now that you're up and running, start poking around and modifying things.
 
 1. Access the server via the command line with `vagrant ssh` from your `vagrant-local` directory. You can do almost anything you would do with a standard Ubuntu installation on a full server.
     * **MS Windows users:** An SSH client is generally not distributed with Windows PCs by default. However, a terminal emulator such as [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) will provide access immediately. For detailed instructions on connecting with PuTTY, consult the [VVV Wiki](https://github.com/Varying-Vagrant-Vagrants/VVV/wiki/Connect-to-Your-Vagrant-Virtual-Machine-with-PuTTY).
+    * From within a remote ssh to vagrant, you'll find the civicrm files in /srv/www/_cms_branch_/sites/all/modules/civicrm.  For example, /srv/www/d7-master/sites/all/modules/civicrm.  Careful, you may also find some civicrm files in /vagrant/www/... these are old artifacts, and aren't the right ones.
 1. Power off the box with `vagrant halt` and turn it back on with `vagrant up`.
 1. Suspend the box's state in memory with `vagrant suspend` and bring it right back with `vagrant resume`.
 1. Reapply provisioning to a running box with `vagrant provision`.
