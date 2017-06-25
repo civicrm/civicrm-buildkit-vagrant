@@ -43,7 +43,6 @@ apt_package_check_list=(
   php-apc
   apache2
   libapache2-mod-php5
-  nodejs-legacy
   npm
   phantomjs
   ruby
