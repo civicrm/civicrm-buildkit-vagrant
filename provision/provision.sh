@@ -43,7 +43,6 @@ apt_package_check_list=(
   php-apc
   apache2
   libapache2-mod-php5
-  nodejs-legacy
   npm
   phantomjs
   ruby
@@ -63,6 +62,9 @@ apt_package_check_list=(
   colordiff
   patch
   postfix
+  php-pear
+  php5-dev
+  libcurl3-openssl-dev
 
   # dnsmasq to redirect *.dev to locahost
   dnsmasq
@@ -210,6 +212,11 @@ tools_install() {
   # Make sure we have the latest npm version and the update checker module
   npm install -g npm
   npm install -g npm-check-updates
+
+  # nodejs
+  # Install suported version of nodejs
+  curl -sL https://deb.nodesource.com/setup_5.x | bash -
+  apt-get install -y nodejs
 
   # xdebug
   #
