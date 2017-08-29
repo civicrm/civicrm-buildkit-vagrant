@@ -38,7 +38,7 @@ These shared directories allow you to work, for example, in `cividev/www/d7-mast
 
 1. Start with any local operating system such as Mac OS X, Linux, or Windows.
 1. Install [Git](http://git-scm.org).
- * Windows users: Be sure to add the Git executables to your path (See, e.g. [this guide](https://eamann.com/tech/vagrant-windows/), under "Prerequisites")
+ * Windows users: Be sure to add the Git executables to your path (See, e.g. [this guide](http://blog.osteel.me/posts/2015/01/25/how-to-use-vagrant-on-windows.html), under "Prerequisites")
 1. Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) 4.3 or above
 1. Install [Vagrant](https://www.vagrantup.com/downloads.html) 1.7 or above
     * `vagrant` will now be available as a command in your terminal, try it out.
