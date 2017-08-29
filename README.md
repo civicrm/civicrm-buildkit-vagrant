@@ -123,6 +123,10 @@ The MySQL/phpMyAdmin username and password is `root / root` by default.
  
 Please note that cividev is a development and testing environment, it is NOT secure and NOT intended to be used in production or on any Internet-accessible server.
 
+### Running Unit Tests
+CD to /srv/www/d7-master/sites/all/modules/civicrm/tools/scripts 
+Run phpunit /srv/www/d7-master/sites/all/modules/civicrm/tests/phpunit/HelloTest.php
+
 ### What do you get?
 
 A bunch of stuff!
