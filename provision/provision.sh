@@ -85,6 +85,11 @@ apt_package_check_list=(
 
   #Mailcatcher requirement
   libsqlite3-dev
+
+  # mkdocs
+  python-pip
+  python-wheel
+  python-dev
 )
 
 ### FUNCTIONS
@@ -534,6 +539,10 @@ phpmyadmin_setup() {
   cp "/srv/config/phpmyadmin-config/config.inc.php" "/srv/www/default/database-admin/"
 }
 
+mkdocs_setup() {
+  # Download mkdocs
+  sudo pip install mkdocs mkdocs-material pygments pymdown-extensions
+}
 
 
 
@@ -577,6 +586,7 @@ opcached_status
 webgrind_install
 php_codesniff
 phpmyadmin_setup
+mkdocs_setup
 
 network_check
 
