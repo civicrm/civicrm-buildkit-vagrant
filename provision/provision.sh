@@ -433,9 +433,6 @@ services_restart() {
   service memcached restart
   service mailcatcher restart
 
-  # Disable PHP Xdebug module by default
-  php5dismod xdebug
-
   # Enable PHP mcrypt module by default
   php5enmod mcrypt
 
