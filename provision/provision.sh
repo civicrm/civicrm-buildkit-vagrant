@@ -220,7 +220,7 @@ tools_install() {
 
   # nodejs
   # Install suported version of nodejs
-  curl -sL https://deb.nodesource.com/setup_5.x | bash -
+  curl -sL https://deb.nodesource.com/setup_8.x | bash -
   apt-get install -y nodejs
 
   # xdebug
