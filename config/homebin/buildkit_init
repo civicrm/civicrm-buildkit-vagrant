@@ -25,9 +25,6 @@ echo "Updating buildkit and tools..."
 civi-download-tools
 
 echo "Configuring amp and civibuild..."
-if [ ! -d "/home/vagrant/.amp/log" ]; then
-  mkdir -p "/home/vagrant/.amp/log"
-fi
 
 amp config:set \
   --mysql_type="mycnf" \

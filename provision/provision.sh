@@ -43,7 +43,6 @@ apt_package_check_list=(
   php-apc
   apache2
   libapache2-mod-php5
-  npm
   phantomjs
   ruby
   ruby-dev
@@ -212,12 +211,6 @@ package_install() {
 }
 
 tools_install() {
-  # npm
-  #
-  # Make sure we have the latest npm version and the update checker module
-  npm install -g npm
-  npm install -g npm-check-updates
-
   # nodejs
   # Install suported version of nodejs
   curl -sL https://deb.nodesource.com/setup_8.x | bash -
