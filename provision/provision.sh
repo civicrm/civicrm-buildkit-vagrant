@@ -220,7 +220,7 @@ tools_install() {
 
   # nodejs
   # Install suported version of nodejs
-  curl -sL https://deb.nodesource.com/setup_5.x | bash -
+  curl -sL https://deb.nodesource.com/setup_8.x | bash -
   apt-get install -y nodejs
 
   # xdebug
@@ -432,9 +432,6 @@ services_restart() {
   echo -e "\nRestart services..."
   service memcached restart
   service mailcatcher restart
-
-  # Disable PHP Xdebug module by default
-  php5dismod xdebug
 
   # Enable PHP mcrypt module by default
   php5enmod mcrypt
