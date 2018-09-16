@@ -11,14 +11,14 @@ Vagrant.configure("2") do |config|
 
   # Configurations from 1.0.x can be placed in Vagrant 1.1.x specs like the following.
   config.vm.provider :virtualbox do |v|
-    # Give VM 1/4 system memory - cf. https://stefanwrobel.com/how-to-make-vagrant-performance-not-suck 
+    # Give VM 1/4 system memory - cf. https://stefanwrobel.com/how-to-make-vagrant-performance-not-suck
     host = RbConfig::CONFIG['host_os']
     if host =~ /darwin/
 	  # sysctl returns Bytes and we need to convert to MB
 	  mem = `sysctl -n hw.memsize`.to_i / 1024
     elsif host =~ /linux/
 	  # meminfo shows KB and we need to convert to MB
-	  mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i 
+	  mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i
     elsif host =~ /mswin|mingw|cygwin/
 	  # Windows code via https://github.com/rdsubhas/vagrant-faster
 	  mem = `wmic computersystem Get TotalPhysicalMemory`.split[1].to_i / 1024
@@ -84,7 +84,7 @@ Vagrant.configure("2") do |config|
 
   # Hyper-V uses a different base box.
   config.vm.provider :hyperv do |v, override|
-    override.vm.box = "ericmann/trusty64"
+    override.vm.box = "phawxby/trusty64"
   end
 
   config.vm.hostname = "civi.dev"
