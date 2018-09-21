@@ -47,7 +47,7 @@
 * **Introduce** [Auto Site Setup](https://github.com/varying-vagrant-vagrants/VVV/wiki/Auto-site-Setup) during provisioning to allow for easy new project configuration.
 * **Happy Fix** `vagrant up` after halt meets expectations and no longer requires provisioning to be reapplied.
 * Begin implementing best practices from Google's [shell style guide](http://google-styleguide.googlecode.com/svn/trunk/shell.xml) in our provisioning scripts.
-* Databases can now be dropped in phpMyAdmin. Pro-tip, `drop database wordpress_develop` in phpMyAdmin followed by `vagrant provision` clears your src.wordpress-develop.dev for reinstall.
+* Databases can now be dropped in phpMyAdmin. Pro-tip, `drop database wordpress_develop` in phpMyAdmin followed by `vagrant provision` clears your src.wordpress-develop.test for reinstall.
 * Copy config files instead of linking them. This allows for a nicer `vagrant up` after a `vagrant halt` and treats provisioning more like it should be treated. See [1fbf329](https://github.com/varying-vagrant-vagrants/VVV/commit/1fbf32926e69b852d912047da1bfa7c302693b82) for a more detailed commit message.
 * Allow for `dashboard-custom.php` to override the default dashboard provided by VVV
 * Reduce size of the included `my.cnf` file to exclude unrequired changes. Increase `max_allowed_packet` setting.
@@ -55,7 +55,7 @@
 ## 0.9
 * **Possible Annoying:** Use `precise32` for the Vagrant box name for better cross project box caching.
     * **Note:** This will probably cause a new Vagrant box to download. Use `vagrant box remove std-precise32` after a `vagrant destroy` to remove the old one and start with this.
-* **Possible Breaking:** Change VM hostname to `vvv.dev`
+* **Possible Breaking:** Change VM hostname to `vvv.test`
     * **Note:** If you had anything setup to rely on the hostname of precise32-dev, this may break.
 * **Possible Breaking:** Change MySQL root password to `root`
 	* **Note:** If anything is setup to rely on the previous password of `blank`, this  may break.

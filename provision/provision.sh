@@ -65,7 +65,7 @@ apt_package_check_list=(
   php5-dev
   libcurl3-openssl-dev
 
-  # dnsmasq to redirect *.dev to locahost
+  # dnsmasq to redirect *.test to locahost
   dnsmasq
 
   # ntp service to keep clock current
@@ -142,7 +142,7 @@ profile_setup() {
     cp "/srv/config/bash_prompt" "/home/vagrant/.bash_prompt"
     echo " * Copied /srv/config/bash_prompt to /home/vagrant/.bash_prompt"
   fi
-  
+
   # Make vagrant own vagrant's files, otherwise you can't edit ~/.bash_profile etc.
   chown -R vagrant: ~vagrant/
 }
@@ -185,11 +185,11 @@ package_install() {
   # Postfix
   #
   # Use debconf-set-selections to specify the selections in the postfix setup. Set
-  # up as an 'Internet Site' with the host name 'civi.dev'. Note that if your current
+  # up as an 'Internet Site' with the host name 'civi.test'. Note that if your current
   # Internet connection does not allow communication over port 25, you will not be
   # able to send mail, even with postfix installed.
   echo postfix postfix/main_mailer_type select Internet Site | debconf-set-selections
-  echo postfix postfix/mailname string civi.dev | debconf-set-selections
+  echo postfix postfix/mailname string civi.test | debconf-set-selections
 
   # Disable ipv6 as some ISPs/mail servers have problems with it
   echo "inet_protocols = ipv4" >> "/etc/postfix/main.cf"
@@ -275,9 +275,9 @@ apache2_setup() {
   fi
   cp -a "/srv/config/cividev-config/index.php" "/srv/www/default/"
   cp -aR "/srv/config/cividev-config/phpinfo/" "/srv/www/default/phpinfo/index.php"
-  cp "/srv/config/apache2-config/conf/civi.dev.conf" "/etc/apache2/conf-available/"
+  cp "/srv/config/apache2-config/conf/civi.test.conf" "/etc/apache2/conf-available/"
 
-  a2enconf civi.dev
+  a2enconf civi.test
 
   # Essential modules
   a2enmod rewrite

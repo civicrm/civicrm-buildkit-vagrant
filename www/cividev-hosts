@@ -7,12 +7,12 @@
 # be created with additional domain information. These will be
 # automatically parsed as long as they are located in subdirectories
 # of the www/ directory.
-civi.dev
-d7-46.dev
-d7-master.dev
-wp-46.dev
-wp-master.dev
-d8-46.dev
-d8-master.dev
-b-46.dev
-b-master.dev
+civi.test
+d7-46.test
+d7-master.test
+wp-46.test
+wp-master.test
+d8-46.test
+d8-master.test
+b-46.test
+b-master.test

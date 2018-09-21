@@ -22,7 +22,7 @@ if ( file_exists( 'dashboard-custom.php' ) ) {
 	<li class="active"><a href="#">Home</a></li>
 	<li><a href="https://github.com/civicrm/civicrm-buildkit-vagrant">Repository</a></li>
 	<li><a href="database-admin/">phpMyAdmin</a></li>
-	<li><a href="http://civi.dev:1080">Mailcatcher</a></li>
+	<li><a href="http://civi.test:1080">Mailcatcher</a></li>
 	<li><a href="webgrind/">Webgrind</a></li>
 	<li><a href="/opcache-status/opcache.php">Opcache Status</a></li>
 	<li><a href="phpinfo/">PHP Info</a></li>
@@ -37,15 +37,15 @@ if ( file_exists( 'dashboard-custom.php' ) ) {
     d8-master with Drupal 8</br>
     b-master with Backdrop</p>
 
-    <p>d7-master.dev is configured on the first vagrant up. To sey up the others ssh to the server with 'vagrant ssh', then issue the command 'civibuild create wp-master' to create wp-master. </p>
+    <p>d7-master.test is configured on the first vagrant up. To sey up the others ssh to the server with 'vagrant ssh', then issue the command 'civibuild create wp-master' to create wp-master. </p>
     <p>Full details on how to create sites with Buildkit can be found here: <a href="https://github.com/civicrm/civicrm-buildkit/blob/master/doc/civibuild.md#build-types" target="_blank">Buildkit Types, Aliases and Rebuilds</a></p>
 </ul>
 
 <ul class="nav">
-	<li><a href="http://d7-master.dev/">http://d7-master.dev/</a> Drupal 7 CiviCRM master (clean)</li>
-	<li><a href="http://d7-46.dev/">http://d7-46.dev</a> Drupal 7 CiviCRM 4.6 (clean)</li>
-	<li><a href="http://wp-master.dev/">http://wp-master.dev</a> WP and CiviCRM master</li>
-	<li><a href="http://wp-46.dev/">http://wp-46.dev</a> WP and CiviCRM 4.6</li>
+	<li><a href="http://d7-master.test/">http://d7-master.test/</a> Drupal 7 CiviCRM master (clean)</li>
+	<li><a href="http://d7-46.test/">http://d7-46.test</a> Drupal 7 CiviCRM 4.6 (clean)</li>
+	<li><a href="http://wp-master.test/">http://wp-master.test</a> WP and CiviCRM master</li>
+	<li><a href="http://wp-46.test/">http://wp-46.test</a> WP and CiviCRM 4.6</li>
 </ul>
 </body>
 </html>

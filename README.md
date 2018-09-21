@@ -32,7 +32,7 @@ Multiple projects can be developed at once in the same environment. Cividev is p
 
 Cividesk's `config`, `database`, `log` and `www` directories are shared with the virtualized server.
 
-These shared directories allow you to work, for example, in `cividev/www/d7-master` in your local file system and have those changes immediately reflected in the virtualized server's file system and http://d7-master.dev/. Likewise, if you `vagrant ssh` and make modifications to the files in `/srv/www/`, you'll immediately see those changes in your local file system.
+These shared directories allow you to work, for example, in `cividev/www/d7-master` in your local file system and have those changes immediately reflected in the virtualized server's file system and http://d7-master.test/. Likewise, if you `vagrant ssh` and make modifications to the files in `/srv/www/`, you'll immediately see those changes in your local file system.
 
 ### The First Vagrant Up
 
@@ -49,10 +49,10 @@ These shared directories allow you to work, for example, in `cividev/www/d7-mast
 1. Install the [vagrant-hostsupdater](https://github.com/cogitatio/vagrant-hostsupdater) plugin with `vagrant plugin install vagrant-hostsupdater`
     * Note: This step is not a requirement, though it does make the process of starting up a virtual machine nicer by automating the entries needed in your local machine's `hosts` file to access the provisioned VVV (Varying Vagrant Vagrants) domains in your browser.
     * If you choose not to install this plugin, the following entries should be added to your local `hosts` file:
-```
-192.168.123.10  cividev civi.dev d7-master.dev wp-master.dev d7-46.dev wp-46.dev
-192.168.123.10  d8-46.dev b-46.dev d8-master.dev b-master.dev
-```
+        ```
+        192.168.123.10  cividev civi.test d7-master.test wp-master.test d7-46.test wp-46.test
+        192.168.123.10  d8-46.test b-46.test d8-master.test b-master.test
+        ```
 1. Install the [vagrant-triggers](https://github.com/emyl/vagrant-triggers) plugin with `vagrant plugin install vagrant-triggers`
     * Note: This step is not a requirement. When installed, it allows for various scripts to fire when issuing commands such as `vagrant halt` and `vagrant destroy`.
     * By default, if vagrant-triggers is installed, a `db_backup` script will run on halt, suspend, and destroy that backs up each database to a `dbname.sql` file in the `{vvv}/database/backups/` directory. These will then be imported automatically if starting from scratch. Custom scripts can be added to override this default behavior.
@@ -66,12 +66,12 @@ These shared directories allow you to work, for example, in `cividev/www/d7-mast
     * Be VERY patient as the magic happens (time for a coffee or lunch break?). This will take a while on the first run as your local machine downloads the required files and builds all.
     * Watch as the script ends, as an administrator or `su` ***password may be required*** to properly modify the hosts file on your local machine.
 1. Visit any of the following default sites in your browser:
-    * [http://d7-master.dev/](http://d7-master.dev/) for CiviCRM trunk on Drupal 7
-    * [http://civi.dev/](http://civi.dev/) for a (minimal) dashboard containing several useful tools
+    * [http://d7-master.test/](http://d7-master.test/) for CiviCRM trunk on Drupal 7
+    * [http://civi.test/](http://civi.test/) for a (minimal) dashboard containing several useful tools
 1. Build additional instances:
     * ssh into your machine with 'vagrant ssh' from the cividev directory
     * type 'civibuild create <configuration>' with <configuration> one of the [predefined configurations](https://github.com/civicrm/civicrm-buildkit-vagrant/blob/master/www/cividev-hosts) (ie. wp-46 for example)
-    * go to 'http://<configuration>.dev' in your local browser to acces the new instance (ie. http://wp-46.dev)
+    * go to 'http://<configuration>.test' in your local browser to acces the new instance (ie. http://wp-46.test)
 
 Fancy, yeah?
 
@@ -121,11 +121,11 @@ Cividev is using a 64bit version of Ubuntu. Some older CPUs (such as the popular
 All CMS usernames and passwords for these installations are `demo / demo` and `admin / admin` by default.
 
 The MySQL/phpMyAdmin username and password is `root / root` by default.
- 
+
 Please note that cividev is a development and testing environment, it is NOT secure and NOT intended to be used in production or on any Internet-accessible server.
 
 ### Running Unit Tests
-CD to /srv/www/d7-master/sites/all/modules/civicrm/tools/scripts 
+CD to /srv/www/d7-master/sites/all/modules/civicrm/tools/scripts
 Run phpunit /srv/www/d7-master/sites/all/modules/civicrm/tests/phpunit/HelloTest.php
 
 ### What do you get?

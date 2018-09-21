@@ -17,7 +17,7 @@ if [[ -e .git ]]; then
 	exit 1
 fi
 
-echo "Converting src.wordpress-develop.dev from SVN to GIT"
+echo "Converting src.wordpress-develop.test from SVN to GIT"
 
 echo "Rename .svn to .svn-backup"
 mv .svn .svn-backup
