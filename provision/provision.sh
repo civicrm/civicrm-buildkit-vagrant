@@ -29,20 +29,25 @@ apt_package_check_list=(
   acl
   git
   wget
-  mysql-server
-  mysql-client
-  php5-cli
-  php5-imap
-  php5-ldap
-  php5-curl
-  php5-mysql
-  php5-intl
-  php5-gd
-  php5-mcrypt
-  php5-xdebug
+  mariadb-server
+  mariadb-client
+  php7.1-cli
+  php7.1-imap
+  php7.1-ldap
+  php7.1-curl
+  php7.1-mysql
+  php7.1-intl
+  php7.1-gd
+  php7.1-mcrypt
+  php7.1-xdebug
+  php7.1-xml
+  php7.1-mbstring
+  php7.1-bcmath
+  php7.1-soap
+  php7.1-zip
   php-apc
   apache2
-  libapache2-mod-php5
+  libapache2-mod-php7.1
   phantomjs
   ruby
   ruby-dev
@@ -62,11 +67,11 @@ apt_package_check_list=(
   patch
   postfix
   php-pear
-  php5-dev
+  php7.1-dev
   libcurl3-openssl-dev
 
   # dnsmasq to redirect *.test to locahost
-  dnsmasq
+  #dnsmasq
 
   # ntp service to keep clock current
   ntp
@@ -150,6 +155,9 @@ profile_setup() {
 package_check() {
   # Loop through each of our packages that should be installed on the system. If
   # not yet installed, it should be added to the array of packages to install.
+  sudo apt-get install -y python-software-properties
+  sudo add-apt-repository -y ppa:ondrej/php
+  sudo apt-get update -y
   local pkg
   local package_version
 
@@ -171,8 +179,8 @@ package_install() {
   package_check
 
   # dnsmasq configuration
-  echo "address=/dev/127.0.0.1" >> /etc/dnsmasq.conf
-  service dnsmasq restart
+  #echo "address=/dev/127.1.0.1" >> /etc/dnsmasq.conf
+  #service dnsmasq restart
 
   # MySQL
   #
@@ -211,9 +219,11 @@ package_install() {
 }
 
 tools_install() {
+  # npm
+  #
   # nodejs
   # Install suported version of nodejs
-  curl -sL https://deb.nodesource.com/setup_8.x | bash -
+  curl -sL https://deb.nodesource.com/setup_10.x | bash -
   apt-get install -y nodejs
 
   # xdebug
@@ -284,8 +294,8 @@ apache2_setup() {
   a2enmod ssl
 
   # PHP packages that need extra setup
-  php5enmod mcrypt
-  php5enmod imap
+  php7enmod mcrypt
+  php7enmod imap
 
   # Restart Apache
   apache2ctl restart
@@ -351,9 +361,9 @@ mailcatcher_setup_gem() {
   cp "/srv/config/init/mailcatcher-gem.conf"  "/etc/init/mailcatcher.conf"
 
 # Make php use it to send mail
-  cp "/srv/config/php5-fpm-config/mailcatcher-gem.ini" "/etc/php5/mods-available/mailcatcher.ini"
+  cp "/srv/config/php-fpm-config/mailcatcher-gem.ini" "/etc/php7/mods-available/mailcatcher.ini"
 # Notify php mod manager (5.5+)
-  sudo php5enmod mailcatcher
+  sudo php7enmod mailcatcher
 
 # Start it now
 /usr/bin/env $(which mailcatcher) --ip=0.0.0.0
@@ -404,11 +414,11 @@ mailcatcher_setup() {
     echo " * Copied /srv/config/init/mailcatcher.conf    to /etc/init/mailcatcher.conf"
   fi
 
-  if [[ -f "/etc/php5/mods-available/mailcatcher.ini" ]]; then
-    echo " *" Mailcatcher php5 already configured.
+  if [[ -f "/etc/php7/mods-available/mailcatcher.ini" ]]; then
+    echo " *" Mailcatcher php7 already configured.
   else
-    cp "/srv/config/php5-fpm-config/mailcatcher.ini" "/etc/php5/mods-available/mailcatcher.ini"
-    echo " * Copied /srv/config/php5-fpm-config/mailcatcher.ini    to /etc/php5/mods-available/mailcatcher.ini"
+    cp "/srv/config/php-fpm-config/mailcatcher.ini" "/etc/php7/mods-available/mailcatcher.ini"
+    echo " * Copied /srv/config/php-fpm-config/mailcatcher.ini    to /etc/php7/mods-available/mailcatcher.ini"
   fi
 }
 
@@ -427,10 +437,10 @@ services_restart() {
   service mailcatcher restart
 
   # Enable PHP mcrypt module by default
-  php5enmod mcrypt
+  php7enmod mcrypt
 
   # Enable PHP mailcatcher sendmail settings by default
-  php5enmod mailcatcher
+  php7enmod mailcatcher
 
   # Add the vagrant user to the www-data group so that it has better access
   # to PHP and Nginx related files.
