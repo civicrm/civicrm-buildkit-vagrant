@@ -45,6 +45,7 @@ apt_package_check_list=(
   php7.1-bcmath
   php7.1-soap
   php7.1-zip
+  php7.1-imagick
   php-apc
   apache2
   libapache2-mod-php7.1
