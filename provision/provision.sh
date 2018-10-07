@@ -294,8 +294,8 @@ apache2_setup() {
   a2enmod ssl
 
   # PHP packages that need extra setup
-  php7enmod mcrypt
-  php7enmod imap
+  phpenmod mcrypt
+  phpenmod imap
 
   # Restart Apache
   apache2ctl restart
@@ -361,9 +361,9 @@ mailcatcher_setup_gem() {
   cp "/srv/config/init/mailcatcher-gem.conf"  "/etc/init/mailcatcher.conf"
 
 # Make php use it to send mail
-  cp "/srv/config/php-fpm-config/mailcatcher-gem.ini" "/etc/php7/mods-available/mailcatcher.ini"
+  cp "/srv/config/php-fpm-config/mailcatcher-gem.ini" "/etc/php/7.1/mods-available/mailcatcher.ini"
 # Notify php mod manager (5.5+)
-  sudo php7enmod mailcatcher
+  sudo phpenmod mailcatcher
 
 # Start it now
 /usr/bin/env $(which mailcatcher) --ip=0.0.0.0
@@ -414,11 +414,11 @@ mailcatcher_setup() {
     echo " * Copied /srv/config/init/mailcatcher.conf    to /etc/init/mailcatcher.conf"
   fi
 
-  if [[ -f "/etc/php7/mods-available/mailcatcher.ini" ]]; then
+  if [[ -f "/etc/php7.1/mods-available/mailcatcher.ini" ]]; then
     echo " *" Mailcatcher php7 already configured.
   else
-    cp "/srv/config/php-fpm-config/mailcatcher.ini" "/etc/php7/mods-available/mailcatcher.ini"
-    echo " * Copied /srv/config/php-fpm-config/mailcatcher.ini    to /etc/php7/mods-available/mailcatcher.ini"
+    cp "/srv/config/php-fpm-config/mailcatcher.ini" "/etc/php7.1/mods-available/mailcatcher.ini"
+    echo " * Copied /srv/config/php-fpm-config/mailcatcher.ini    to /etc/php7.1/mods-available/mailcatcher.ini"
   fi
 }
 
@@ -437,10 +437,10 @@ services_restart() {
   service mailcatcher restart
 
   # Enable PHP mcrypt module by default
-  php7enmod mcrypt
+  sudo phpenmod mcrypt
 
   # Enable PHP mailcatcher sendmail settings by default
-  php7enmod mailcatcher
+  sudo phpenmod mailcatcher
 
   # Add the vagrant user to the www-data group so that it has better access
   # to PHP and Nginx related files.
