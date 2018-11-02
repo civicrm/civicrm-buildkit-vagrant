@@ -30,7 +30,7 @@ Multiple projects can be developed at once in the same environment. Cividev is p
 * __d8-master__ with Drupal 8
 * __b-master__ with Backdrop
 
-Cividesk's `config`, `database`, `log` and `www` directories are shared with the virtualized server.
+Cividev's `config`, `database`, `log` and `www` directories are shared with the virtualized server.
 
 These shared directories allow you to work, for example, in `cividev/www/d7-master` in your local file system and have those changes immediately reflected in the virtualized server's file system and http://d7-master.test/. Likewise, if you `vagrant ssh` and make modifications to the files in `/srv/www/`, you'll immediately see those changes in your local file system.
 
