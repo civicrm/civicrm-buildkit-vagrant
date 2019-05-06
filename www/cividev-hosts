@@ -8,11 +8,7 @@
 # automatically parsed as long as they are located in subdirectories
 # of the www/ directory.
 civi.test
-d7-46.test
 d7-master.test
-wp-46.test
 wp-master.test
-d8-46.test
 d8-master.test
-b-46.test
 b-master.test

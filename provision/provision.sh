@@ -26,29 +26,28 @@ apt_package_install_list=()
 apt_package_check_list=(
 
   # copied from https://github.com/civicrm/civicrm-buildkit/blob/master/bin/civi-download-tools#L259
-  acl
+  # acl - seems not so required in later versions
   git
   wget
-  mariadb-server
-  mariadb-client
-  php7.1-cli
-  php7.1-imap
-  php7.1-ldap
-  php7.1-curl
-  php7.1-mysql
-  php7.1-intl
-  php7.1-gd
-  php7.1-mcrypt
-  php7.1-xdebug
-  php7.1-xml
-  php7.1-mbstring
-  php7.1-bcmath
-  php7.1-soap
-  php7.1-zip
-  php7.1-imagick
-  php-apc
+  mysql-server
+  mysql-client-core-5.7
+  php7.2-cli
+  php7.2-imap
+  php7.2-ldap
+  php7.2-curl
+  php7.2-mysql
+  php7.2-intl
+  php7.2-gd
+  php-xdebug
+  php7.2-xml
+  php7.2-mbstring
+  php7.2-bcmath
+  php7.2-soap
+  php7.2-zip
+  php-imagick
+  php-apcu
   apache2
-  libapache2-mod-php7.1
+  libapache2-mod-php7.2
   phantomjs
   ruby
   ruby-dev
@@ -56,7 +55,6 @@ apt_package_check_list=(
 
   # other packages that come in handy
   imagemagick
-  subversion
   git-core
   zip
   unzip
@@ -68,7 +66,7 @@ apt_package_check_list=(
   patch
   postfix
   php-pear
-  php7.1-dev
+  php7.2-dev
   libcurl3-openssl-dev
 
   # dnsmasq to redirect *.test to locahost
@@ -156,7 +154,7 @@ profile_setup() {
 package_check() {
   # Loop through each of our packages that should be installed on the system. If
   # not yet installed, it should be added to the array of packages to install.
-  sudo apt-get install -y python-software-properties
+  sudo apt-get install -y software-properties-common
   sudo add-apt-repository -y ppa:ondrej/php
   sudo apt-get update -y
   local pkg
@@ -255,7 +253,7 @@ tools_install() {
   if [[ -n "$(composer --version --no-ansi | grep 'Composer version')" ]]; then
     echo "Updating Composer..."
     COMPOSER_HOME=/usr/local/src/composer composer self-update
-    COMPOSER_HOME=/usr/local/src/composer composer -q global require --no-update phpunit/phpunit:4.3.*
+    COMPOSER_HOME=/usr/local/src/composer composer -q global require --no-update phpunit/phpunit:>4.0
     COMPOSER_HOME=/usr/local/src/composer composer -q global require --no-update phpunit/php-invoker:1.1.*
     COMPOSER_HOME=/usr/local/src/composer composer -q global require --no-update mockery/mockery:0.9.*
     COMPOSER_HOME=/usr/local/src/composer composer -q global require --no-update d11wtq/boris:v1.0.8
@@ -295,7 +293,6 @@ apache2_setup() {
   a2enmod ssl
 
   # PHP packages that need extra setup
-  phpenmod mcrypt
   phpenmod imap
 
   # Restart Apache
@@ -362,7 +359,7 @@ mailcatcher_setup_gem() {
   cp "/srv/config/init/mailcatcher-gem.conf"  "/etc/init/mailcatcher.conf"
 
 # Make php use it to send mail
-  cp "/srv/config/php-fpm-config/mailcatcher-gem.ini" "/etc/php/7.1/mods-available/mailcatcher.ini"
+  cp "/srv/config/php-fpm-config/mailcatcher-gem.ini" "/etc/php/7.2/mods-available/mailcatcher.ini"
 # Notify php mod manager (5.5+)
   sudo phpenmod mailcatcher
 
@@ -415,11 +412,11 @@ mailcatcher_setup() {
     echo " * Copied /srv/config/init/mailcatcher.conf    to /etc/init/mailcatcher.conf"
   fi
 
-  if [[ -f "/etc/php7.1/mods-available/mailcatcher.ini" ]]; then
+  if [[ -f "/etc/php7.2/mods-available/mailcatcher.ini" ]]; then
     echo " *" Mailcatcher php7 already configured.
   else
-    cp "/srv/config/php-fpm-config/mailcatcher.ini" "/etc/php7.1/mods-available/mailcatcher.ini"
-    echo " * Copied /srv/config/php-fpm-config/mailcatcher.ini    to /etc/php7.1/mods-available/mailcatcher.ini"
+    cp "/srv/config/php-fpm-config/mailcatcher.ini" "/etc/php7.2/mods-available/mailcatcher.ini"
+    echo " * Copied /srv/config/php-fpm-config/mailcatcher.ini    to /etc/php7.2/mods-available/mailcatcher.ini"
   fi
 }
 
@@ -436,9 +433,6 @@ services_restart() {
   echo -e "\nRestart services..."
   service memcached restart
   service mailcatcher restart
-
-  # Enable PHP mcrypt module by default
-  sudo phpenmod mcrypt
 
   # Enable PHP mailcatcher sendmail settings by default
   sudo phpenmod mailcatcher
