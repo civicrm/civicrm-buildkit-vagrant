@@ -63,9 +63,9 @@ Vagrant.configure("2") do |config|
   # Default Ubuntu Box
   #
   # This box is provided by Ubuntu vagrantcloud.com and is a nicely sized (332MB)
-  # box containing the Ubuntu 14.04 Trusty 64 bit release. Once this box is downloaded
+  # box containing the Ubuntu 18.10 Cosmic Cuttlefish 64 bit release. Once this box is downloaded
   # to your host computer, it is cached for future use under the specified box name.
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "generic/ubuntu1810"
 
   # The Parallels Provider uses a different naming scheme.
   config.vm.provider :parallels do |v, override|

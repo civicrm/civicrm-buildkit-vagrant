@@ -25,8 +25,7 @@ Once Vagrant and VirtualBox are installed, download or clone cividev and type `v
 Multiple projects can be developed at once in the same environment. Cividev is pre-configured with the following CiviCRM configurations:
 
 * __d7-master__ with Drupal 7 and the current development version of CiviCRM
-* __d7-46__ with Drupal 7 and CiviCRM 4.6 (LTS)
-* __wp-master__ and __wp-46__ with WordPress
+* __wp-master__ with WordPress
 * __d8-master__ with Drupal 8
 * __b-master__ with Backdrop
 
@@ -61,7 +60,7 @@ These shared directories allow you to work, for example, in `cividev/www/d7-mast
     * `git clone git://github.com/civicrm/civicrm-buildkit-vagrant.git cividev`
     * OR download and extract the repository master [zip file](https://github.com/civicrm/civicrm-buildkit-vagrant/archive/master.zip) to a `cividev` directory on your computer.
     * OR download and extract a [stable release](https://github.com/civicrm/civicrm-buildkit-vagrant/releases) zip file if you'd like some extra comfort.
-1. In a command prompt, change into the directory where you placed the files.  Use `cd` from the command prompt to do this.  
+1. In a command prompt, change into the directory where you placed the files.  Use `cd` from the command prompt to do this.
 1. Start the Vagrant environment with `vagrant up`
     * Be VERY patient as the magic happens (time for a coffee or lunch break?). This will take a while on the first run as your local machine downloads the required files and builds all.
     * Watch as the script ends, as an administrator or `su` ***password may be required*** to properly modify the hosts file on your local machine.
@@ -114,8 +113,6 @@ Cividev relies on the stability of both Vagrant and Virtualbox. These caveats ar
 
 The default memory allotment for the cividev virtual machine is 1024MB. If you would like to raise or lower this value to better match your system requirements, a [guide to changing memory size](https://github.com/Varying-Vagrant-Vagrants/VVV/wiki/Customising-your-Vagrant's-attributes-and-parameters) is in the wiki.
 
-Cividev is using a 64bit version of Ubuntu. Some older CPUs (such as the popular *Intel Core 2 Duo* series) do not support this. Changing the line `config.vm.box = "ubuntu/trusty64"` to `"ubuntu/trusty32"` in the `Vagrantfile` before `vagrant up` will provision a 32bit version of Ubuntu that will work on older hardware.
-
 ### Credentials and Such
 
 All CMS usernames and passwords for these installations are `demo / demo` and `admin / admin` by default.
@@ -132,10 +129,10 @@ Run phpunit /srv/www/d7-master/sites/all/modules/civicrm/tests/phpunit/HelloTest
 
 A bunch of stuff!
 
-1. [Ubuntu](http://www.ubuntu.com/) 14.04 LTS (Trusty Tahr)
+1. [Ubuntu](http://www.ubuntu.com/) 18.10
 1. [apache](http://apache.org/) 2.4.x
-1. [mysql](https://www.mysql.com/) 5.5.x
-1. [php5](http://php.net/) 5.5.x and all extensions needed for CiviCRM
+1. [mysql](https://www.mysql.com/) 5.7.x
+1. [php5](http://php.net/) 7.2.x and all extensions needed for CiviCRM
 1. [memcached](http://memcached.org/)
 1. PHP [memcache extension](https://pecl.php.net/package/memcache)
 1. PHP [xdebug extension](https://pecl.php.net/package/xdebug/)

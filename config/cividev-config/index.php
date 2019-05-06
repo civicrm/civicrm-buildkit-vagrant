@@ -31,9 +31,7 @@ if ( file_exists( 'dashboard-custom.php' ) ) {
 	<p>Multiple projects can be developed at once in the same environment. Cividev is pre-configured with the following CiviCRM configurations:</p>
 
     <p>d7-master with Drupal 7 and the current development version of CiviCRM</br>
-    d7-46 with Drupal 7 and CiviCRM 4.6 (LTS)</br>
     wp-master with WordPress and the current development version of CiviCRM</br>
-    wp-46 with WordPress and CiviCRM 4.6 (LTS)</br>
     d8-master with Drupal 8</br>
     b-master with Backdrop</p>
 
@@ -43,9 +41,7 @@ if ( file_exists( 'dashboard-custom.php' ) ) {
 
 <ul class="nav">
 	<li><a href="http://d7-master.test/">http://d7-master.test/</a> Drupal 7 CiviCRM master (clean)</li>
-	<li><a href="http://d7-46.test/">http://d7-46.test</a> Drupal 7 CiviCRM 4.6 (clean)</li>
 	<li><a href="http://wp-master.test/">http://wp-master.test</a> WP and CiviCRM master</li>
-	<li><a href="http://wp-46.test/">http://wp-46.test</a> WP and CiviCRM 4.6</li>
 </ul>
 </body>
 </html>
