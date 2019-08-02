@@ -112,6 +112,23 @@ network_detection() {
   fi
 }
 
+phpmyadmin_available() {
+  # Check if files.phpmyadmin.net is available
+  #
+  # Make an HTTP request to files.phpmyadmin.net to determine if outside access is available
+  # to us. If 3 attempts with a timeout of 5 seconds are not successful, then we'll
+  # add a dns entry to google's dns 8.8.8.8
+  if [[ "$(wget --tries=3 --timeout=5 --spider http://files.phpmyadmin.net 2>&1 | grep 'connected')" ]]; then
+    echo "Network working to phpmyadmin host"
+    myphpadmin_result="Connected without change"
+  else
+    echo "Full connection not detected. Unable to reach files.phpmyadmin.net..."
+    echo "nameserver 8.8.8.8" >> /etc/resolv.conf
+    echo "resolver updated"
+    phpmyadmin_result="resolver update"
+  fi
+}
+
 network_check() {
   network_detection
   if [[ ! "$ping_result" == "Connected" ]]; then
@@ -554,6 +571,9 @@ buildkit() {
 #set -xv
 
 network_check
+
+phpmyadmin_available
+
 # Profile_setup
 echo "Bash profile setup and directories."
 profile_setup
